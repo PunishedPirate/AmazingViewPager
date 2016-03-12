@@ -23,9 +23,27 @@ public class MainActivity extends AppCompatActivity {
     mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
     mViewPager = (ViewPager) findViewById(R.id.pager);
     mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-    mTabLayout.setTabsFromPagerAdapter(mPagerAdapter);
     mViewPager.setAdapter(mPagerAdapter);
-    mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+    mTabLayout.setTabsFromPagerAdapter(mPagerAdapter);
+    mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+      @Override
+      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+      }
+
+      @Override
+      public void onPageSelected(int position) {
+        mTabLayout.getTabAt(position).select();
+      }
+
+      @Override
+      public void onPageScrollStateChanged(int state) {
+
+      }
+    });
+    mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
   }
 
   @TargetApi(19)
